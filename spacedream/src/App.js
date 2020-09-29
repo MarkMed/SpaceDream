@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from "react";
+import { ApolloProvider } from "@apollo/react-hooks";
+import client from "./client";
+import Header from './components/Header'
+import Footer from "./components/Footer";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
+import Welcome from "./components/Welcome";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <Router>
+        <Route path="/" component={Header} />
+        <Route path="/" component={Welcome} />
+        <Switch>
+          <Route path="/login" component={LoginForm} />
+          <Route path="/register" component={RegisterForm} />
+        </Switch>
+        <Footer />
+      </Router>
+    </ApolloProvider>
   );
 }
 

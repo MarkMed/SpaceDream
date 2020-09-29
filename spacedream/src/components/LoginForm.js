@@ -1,0 +1,133 @@
+import * as React from "react";
+import styled from "styled-components";
+import { Container, Typography, TextField, Button } from "@material-ui/core";
+import logo from "../assets/logo.png";
+import { Formik } from "formik";
+import * as Yup from 'yup';
+import { useMutation } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+import Row from 'react-bootstrap/Row'
+import Spinner from 'react-bootstrap/Spinner'
+import { withRouter } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
+
+const validations = Yup.object().shape({
+  username: Yup.string()
+    .required('Required')
+})
+
+const LOGIN = gql`
+  mutation login($input: LoginInput!) {
+    login(input: $input) {      
+      ok,
+      error,
+      user {
+        id,
+        fullname,
+        username
+      }
+    }
+  }
+`;
+
+const LoginForm = () => {
+  const [errorState, setErrorState] = React.useState('');
+  const [login, { loading, error }] = useMutation(LOGIN);
+  var show = true;
+
+  if ({ show }) {
+    return (
+      <Container maxWidth="sm">
+        <div style={{ textAlign: "center" }}>
+          <Logo src={logo} />
+          <Typography variant="h4">
+            Login
+        </Typography>
+        </div>
+        <br />
+        <Formik
+          initialValues={{ username: '' }}
+          validationSchema={validations}
+          onSubmit={(values, { setSubmitting }) => {
+            setErrorState('');
+            login({
+              variables: {
+                input: values
+              },
+            }).then(({ data }) => {
+              if (data.login.ok) {
+                localStorage.setItem('userId', data.login.user.id);
+                localStorage.setItem('name', data.login.user.fullname);
+                show = false;
+                window.history.back();
+              }
+              else {
+                setErrorState(data.login.error);
+                setSubmitting(false);
+              }
+            }).catch((e) => {
+              setSubmitting(false);
+            });
+          }}
+        >
+          {({
+            values, errors, touched, handleChange, handleSubmit, isSubmitting
+          }) => (
+              <div>
+                <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+                  <FormContainer>
+                    <TextField
+                      error={errors.username && touched.username}
+                      helperText={errors.username && touched.username ? errors.username : ' '}
+                      variant="filled"
+                      id="username"
+                      label="Username"
+                      value={values.username}
+                      onChange={handleChange("username")}
+                    />
+                    <br />
+                    <Button
+                      disabled={isSubmitting}
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                    >
+                      LOGIN
+                    </Button>
+                  </FormContainer>
+                </form>
+                {loading &&
+                  <Row className="justify-content-md-center">
+                    <Spinner animation="border" />
+                  </Row>}
+                {error && <p>User not found</p>}
+                {errorState && <p>{errorState}</p>}
+              </div>
+            )}
+        </Formik>
+        <br />
+      </Container>
+    );
+  }
+  return (<></>);
+};
+
+const Logo = styled.img`
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+`;
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export default withRouter(LoginForm);
