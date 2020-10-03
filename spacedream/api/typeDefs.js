@@ -13,6 +13,8 @@ const typeDefs = gql`
         
         feedback(id: ID!): Feedback
         feedbacks(eventId: ID!): [Feedback]
+        feedbacksByEvent(eventId: ID!): Feedback
+        feedbacksByAstronaut(astronautId: ID!): Feedback
 
         event(id: ID!): Event
         events(userId: ID!): [Event]
