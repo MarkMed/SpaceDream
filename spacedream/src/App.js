@@ -31,7 +31,7 @@ const Logo = styled.img`
 const steps = [
   {
     id: '1',
-    message: 'What is your name?',
+    message: 'Hi!, How can I help you?',
     trigger: '2',
   },
   {
@@ -41,7 +41,7 @@ const steps = [
   },
   {
     id: '3',
-    message: 'Hi {previousValue}, nice to meet you!',
+    message: 'Did you say {previousValue}?',
     end: true,
   },
 ];
