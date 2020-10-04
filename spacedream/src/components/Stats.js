@@ -126,19 +126,19 @@ const Stats = (props) => {
 			<Tab className={classes.tab} label="Sleep" {...a11yProps(3)} />
 		</Tabs>
 		<TabPanel className={classes.tabPanel} value={value} index={0}>
-		  <NextSteps>Nutrition</NextSteps>
+		  <NextSteps>next meals</NextSteps>
 		  <Summarize />
 		</TabPanel>
 		<TabPanel className={classes.tabPanel} value={value} index={1}>
-		  <NextSteps>Tasks</NextSteps>
+		  <NextSteps>next tasks to do</NextSteps>
 		  <Summarize />
 		</TabPanel>
 		<TabPanel className={classes.tabPanel} value={value} index={2}>
-		  <NextSteps>Exercise</NextSteps>
+		  <NextSteps>next Exercise sessions</NextSteps>
 		  <Summarize />
 		</TabPanel>
 		<TabPanel className={classes.tabPanel} value={value} index={3}>
-		  <NextSteps>Sleep</NextSteps>
+		  <NextSteps>Sleep Time!</NextSteps>
 		  <Summarize />
 		</TabPanel>
 	  </div>

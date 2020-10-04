@@ -5,22 +5,44 @@ import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		flexGrow: 1,
-		display: 'flex',
 		width: "100%",
 		height: "300px",
-		background: "blue",
-		marginBottom: "10px",
+		background: "transparent",
+		marginBottom: "20px",
 		padding: "10px"
 	}
 }));
 
 function Title(props) {
 	const {children} = props;
+	const useStyles = makeStyles((theme) => ({
+		title: {
+			display: 'flex',
+			flexDirection: "row",
+			justifyContent: "flex-start",
+			alignItems: "center",
+			width: "100%",
+			height: "auto"
+		},
+		header: {
+			marginRight: "10px",
+			color: "rgba(0, 0, 0, 0.7)",
+			textTransform: "capitalize",
+		},
+		line: {
+			borderTop: "2px solid rgba(0, 0, 0, 0.4)",
+			width: "70%",
+			height: "1px",
+			flexGrow: 1,
+		}
+	}));
+	const classes = useStyles();
 
 	return (
-	<Typography	>
-		<h2>{children}</h2>
+	<Typography className={classes.title}
+	component="h2">
+		<h2 className={classes.header}>{children}</h2>
+		<span className={classes.line}></span>
 	</Typography>
 	);
 }
@@ -46,7 +68,7 @@ const NextSteps = (props) => {
     )*/
 	const classes = useStyles();
 	return (
-	<Paper elevation="5" className={classes.root}>
+	<Paper elevation="0" className={classes.root}>
 		<Title>
 			{children}
 		</Title>

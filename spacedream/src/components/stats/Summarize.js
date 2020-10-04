@@ -8,8 +8,7 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		width: "100%",
 		height: "800px",
-		background: "red",
-		marginBottom: "10px"
+		background: "transparent"
 	}
 }));
 
@@ -33,7 +32,7 @@ const Summarize = (props) => {
     )*/
 	const classes = useStyles();
 	return (	  
-		<Paper elevation="5" className={classes.root}></Paper>
+		<Paper elevation="1" className={classes.root}></Paper>
 	);
 }
 export default Summarize;
