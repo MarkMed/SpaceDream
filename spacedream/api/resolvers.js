@@ -42,6 +42,11 @@ const resolvers = {
         users: () => User.find(),
         eventsType: () => EventType.find()
     },
+    Event: {
+        eventType(parent) {
+            return EventType.findOne({ id: parent.eventTypeId });
+        }
+    },
     Mutation: {
         login: async (_, { input }) => { 
             const user = await User.findOne({

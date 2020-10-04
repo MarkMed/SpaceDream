@@ -12,16 +12,9 @@ import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { green } from '@material-ui/core/colors';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
+  Link
 } from "react-router-dom";
 import {
-  fade,
-  ThemeProvider,
   withStyles,
   makeStyles,
   createMuiTheme,
