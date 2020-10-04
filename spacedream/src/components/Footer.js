@@ -34,7 +34,7 @@ const FooterStyle = styled.div`
 function Footer() {
   return (
     <FooterStyle>
-      <Typography variant="body2" color="textSecondary" align="center">
+      <Typography variant="body2" color="textSecondary" align="center" style={{ color: '#c9c9c9' }}>
         {'Copyright © SpaceDream '}
         {new Date().getFullYear()}
         {'.'}
