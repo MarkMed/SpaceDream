@@ -11,6 +11,7 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import Welcome from "./Welcome";
 import Navbar from 'react-bootstrap/Navbar'
+import DarkModeToggle from './theme/darkmodetoggle';
 import {
     Link,
 } from "react-router-dom";
@@ -128,6 +129,7 @@ export default function ButtonAppBar() {
                             </Button>
                             : ''
                         }
+                        <DarkModeToggle />
                     </Toolbar>
                 </AppBar>
                 <Modal

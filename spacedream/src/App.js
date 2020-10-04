@@ -17,7 +17,6 @@ import {
 } from "react-router-dom";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import DarkModeToggle from './components/theme/darkmodetoggle';
 import logo from "./assets/logo.png";
 import { ModalManager } from "@material-ui/core";
 
@@ -34,7 +33,6 @@ function App() {
       <Router>
         <Route path="/" component={MenuBar} />
         <Route path="/" component={Welcome} />
-        <DarkModeToggle />
         <Switch>
           <Route path="/calendar" component={Calendar} />
           <Route path="/stats" component={Stats} />
