@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		width: "100%",
 		height: "800px",
-		background: "transparent"
+		background: "rgba(0, 0, 0, 0.1)"
 	}
 }));
 

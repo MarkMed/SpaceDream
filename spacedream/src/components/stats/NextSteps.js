@@ -1,17 +1,24 @@
 import React, { Children } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, styled } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper'
-import { Typography } from "@material-ui/core";
+import { Typography, Box} from "@material-ui/core";
+import NextStepCard from "../NextStepCard/NextStepCard"
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: "100%",
-		height: "300px",
+		height: "20%",
 		background: "transparent",
 		marginBottom: "20px",
 		padding: "10px"
 	}
 }));
+
+const CardsList = styled(Box)({
+	width: "100%",
+	height: "20%",
+	display: "block"
+})
 
 function Title(props) {
 	const {children} = props;
@@ -46,6 +53,35 @@ function Title(props) {
 	</Typography>
 	);
 }
+const data = [
+	{
+		type: "meal",
+		user: "markmed",
+		userName: "Marcos Medina",
+		timeStart: "09:00am",
+		timeEnd: "10:00am",
+		title: "Breakfast w/ Coffe!",
+		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
+	},
+	{
+		type: "meal",
+		user: "markmed",
+		userName: "Marcos Medina",
+		timeStart: "03:00pm",
+		timeEnd: "04:00pm",
+		title: "Have lunch (Fresh Corn!)",
+		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
+	},
+	{
+		type: "meal",
+		user: "markmed",
+		userName: "Marcos Medina",
+		timeStart: "08:00pm",
+		timeEnd: "09:00pm",
+		title: "Dinner (Steak!)",
+		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
+	}
+  ]
 
 const NextSteps = (props) => {
 	const {children} = props
@@ -72,6 +108,10 @@ const NextSteps = (props) => {
 		<Title>
 			{children}
 		</Title>
+		<CardsList>
+			{data.map(dataInstance => (<NextStepCard data={dataInstance}></NextStepCard>))}
+		</CardsList>
+		
 	</Paper>
 	);
 }
