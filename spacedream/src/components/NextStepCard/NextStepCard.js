@@ -86,7 +86,7 @@ const NextStepCard = (props) => {
 	}
 
 	return (	  
-		<Card className={classes.root}>
+		<Card className={classes.root} elevation={4}>
 		<CardContent>
 			<Typography gutterBottom variant="h5" component="h2" noWrap style={{marginBottom: "0"}}>
 				<StepTypeIcon stepType={data.type} className={classes.stepTypeIcon}></StepTypeIcon>
