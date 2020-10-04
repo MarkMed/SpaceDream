@@ -13,12 +13,18 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ReportProblemIcon from '@material-ui/icons/ReportProblem';
+import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
+import SnoozeOutlinedIcon from '@material-ui/icons/SnoozeOutlined';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 	  maxWidth: 500,
 	  marginRight: "30px",
-	  flexGrow: 1
+	  flexGrow: 1,
+	  background: "rgba(0, 0, 0, 0)"
 	},
 	optionMenu: {
 		minWidth: "30px"
@@ -39,22 +45,37 @@ const useStyles = makeStyles((theme) => ({
 	},
 	avatar: {
 	  backgroundColor: red[500],
-	},
-	cardComment: {
-		backgroundColor: "rgba(0, 0, 0, 0.1)",
-		marginBottom: "5px"
 	}
   }));
-
+const StepTypeIcon = ({stepType}) => {
+	const styles = {
+		marginRight: "5px",
+		color: "rgba(10, 10, 10, 0.7)",
+		background: "rgba(10, 10, 10, 0.1)",
+		borderRadius: "100%",
+		transform: "translateY(-2px)"
+	}
+	if(stepType === "tasks"){
+		return (<AssignmentOutlinedIcon style={styles}/>)
+	}
+	else if (stepType === "meal"){
+		return (<RestaurantIcon style={styles}/>)
+	}
+	else if (stepType === "exercise"){
+		return (<EmojiPeopleIcon style={styles}/>)
+	}
+	else if (stepType === "sleep"){
+		return (<SnoozeOutlinedIcon style={styles}/>)
+	}
+	else{
+		return (<HelpOutlineOutlinedIcon style={styles}/>)
+	}
+}
 const NextStepCard = (props) => {
 	const {data} = props;
 	const classes = useStyles();
 	const [expanded, setExpanded] = React.useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
-  
-	const handleExpandClick = () => {
-	  setExpanded(!expanded);
-	};
 
 	function handleMenuClick(event) {
 		setAnchorEl(event.currentTarget);
@@ -67,7 +88,8 @@ const NextStepCard = (props) => {
 	return (	  
 		<Card className={classes.root}>
 		<CardContent>
-			<Typography gutterBottom variant="h5" component="h2" noWrap>
+			<Typography gutterBottom variant="h5" component="h2" noWrap style={{marginBottom: "0"}}>
+				<StepTypeIcon stepType={data.type} className={classes.stepTypeIcon}></StepTypeIcon>
 				{data.title}
 			</Typography>			
 			<Typography gutterBottom variant="span" component="span" noWrap>
@@ -130,7 +152,7 @@ const NextStepCard = (props) => {
 				
 			}
 			title={data.userName}
-			subheader={data.user}></CardHeader>
+			subheader={`@${data.user}`}></CardHeader>
 		</Card>
 	);
 }

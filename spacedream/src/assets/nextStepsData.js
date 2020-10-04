@@ -30,7 +30,7 @@ export const nextStepsData = {
 			description: "In this task, the crew member must take out the leaves to the trash in order to complete the task."
 		},
 		{
-			type: "sleep",
+			type: "tasks",
 			user: "markmed",
 			userName: "Marcos Medina",
 			timeStart: "10:00pm",
@@ -39,7 +39,7 @@ export const nextStepsData = {
 			description: "This task requires the player to first go to the Refuel Station in Storage (applies in The Skeld and Polus) and fill their gas can to transport the fuel to the engines. If there are multiple stages, you must return to Storage to refill the tank again for each destination."
 		},
 		{
-			type: "sleep",
+			type: "tasks",
 			user: "markmed",
 			userName: "Marcos Medina",
 			timeStart: "02:00pm",
@@ -50,7 +50,7 @@ export const nextStepsData = {
 	],
 	dataMeal: [
 		{
-			type: "meal",
+			type: "mealuk",
 			user: "markmed",
 			userName: "Marcos Medina",
 			timeStart: "09:00am",
