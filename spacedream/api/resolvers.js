@@ -38,6 +38,12 @@ const Feedback = mongoose.model("Feedback", {
     description: String
 })
 
+
+const FeedbackAstronaut = mongoose.model("FeedbackAstronaut", {
+    astronautId: String,
+    feedbackId: String
+})
+
 const resolvers = {
     Query: {
         event: (_, args) => {
@@ -56,30 +62,30 @@ const resolvers = {
             return Feedback.find({ eventId: args.eventId });
         },
         feedbacksByAstronaut: (_, args, context, info) => {
-            return Review.find({ userId: args.userId });
+            return Feedback.find({ userId: args.userId });
         },
         astronauts: () => Astronaut.find(),
         physicians: () => Physician.find(),
         admins: () => Admin.find()
     },
-    Event: {
-        feedbacks(parent) {
-            return Review.find({ eventId: parent.id });
-        }
-    },
-    Feedback: {
-        user(parent) {
-            return User.findById(parent.userId);
-        },
-        feedbackAstronaut(parent) {
-            return Astronaut.findById(parent.astronautId);
-        }
-    },
-    FeedbackAstronaut: {
-        astronaut(parent) {
-            return Astronaut.findById(parent.astronautId);
-        }
-    },
+    // Event: {
+    //     feedbacks(parent) {
+    //         return Review.find({ eventId: parent.id });
+    //     }
+    // },
+    // Feedback: {
+    //     astronaut(parent) {
+    //         return Astronaut.findById(parent.userId);
+    //     },
+    //     feedbackAstronaut(parent) {
+    //         return FeedbackAstronaut.findById(parent.astronautId);
+    //     }
+    // },
+    // FeedbackAstronaut: {
+    //     astronaut(parent) {
+    //         return Astronaut.findById(parent.astronautId);
+    //     }
+    // },
     Mutation: {
         login: async (_, { input }) => {
             const user = await Astronaut.findOne({
@@ -159,7 +165,7 @@ const resolvers = {
                 };
             }
 
-            const physician = await new Physician(input).save();
+            //const physician = await new Physician(input).save();
             const { _id, username, fullname } = physician;
             const token = jwt.sign({ _id, username, fullname }, JWT_SECRET);
             physician.token = token;
@@ -189,7 +195,7 @@ const resolvers = {
                 };
             }
 
-            const admin = await new Admin(input).save();
+            //const admin = await new Admin(input).save();
             const { _id, username, fullname } = admin;
             const token = jwt.sign({ _id, username, fullname }, JWT_SECRET);
             admin.token = token;
