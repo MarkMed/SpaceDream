@@ -1,69 +1,73 @@
 import React, { Component } from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper'
 import Chart from "react-apexcharts";
 import DonutChart from './donutChart';
 import styled from "styled-components";
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        display: 'flex',
-        width: "100%",
-        height: "800px",
-        background: "rgba(0, 0, 0, 0.1)"
-    }
-}));
+import Sugestions from './sugestions';
 
 
 const ChartListStyle = styled.div`
-    text-align: -webkit-center;
-    justify-content: center;
+	display: flex;
+	flex-direction: row;
 `;
+const Main = styled.main`
+	display: block;
+	flex-direction: row;
+	width: 100%,
+`;
+const styles = (theme) => ({
+	root: {
+		flexGrow: 1,
+		display: 'block',
+		width: "100%",
+		// height: "800px",
+		background: "rgba(0, 0, 0, 0.02)"
+	}
+});
+
 
 class Summarize extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             options: {
                 chart: {
                     id: "basic-bar"
                 },
                 xaxis: {
-                    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+                    categories: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
                 }
             },
             series: [
                 {
                     name: "series-1",
-                    data: [30, 40, 45, 50, 49, 60, 70, 91]
+                    data: [8, 7, 4, 6, 8, 7.5, null]
                 }
             ]
-        };
-    }
-
+        }
+	}
     render() {
+		const {classes} = this.props;
         return (
-            <ChartListStyle>
-                <Chart
-                    options={this.state.options}
-                    series={this.state.series}
-                    type="bar"
-                    width="500"
-                />
-                <br />
-                <DonutChart />
-                <br />
-                <Chart
-                    options={this.state.options}
-                    series={this.state.series}
-                    type="line"
-                    width="500"
-                />
-                <br />
-            </ChartListStyle>
+			<Paper elevation="2" className={classes.root}>
+				<ChartListStyle>
+					<Chart
+						options={this.state.options}
+						series={this.state.series}
+						type="bar"
+						style={{width: "50%"}}
+					/>
+					<Chart
+						options={this.state.options}
+						series={this.state.series}
+						type="line"
+						style={{width: "50%"}}
+					/>
+				</ChartListStyle>
+				<Sugestions type={"Meal"} />
+			</Paper>
         );
     }
 }
-export default Summarize;
+export default withStyles(styles)(Summarize);

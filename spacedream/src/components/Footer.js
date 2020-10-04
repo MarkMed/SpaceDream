@@ -9,46 +9,67 @@ const useStyles = makeStyles((theme) => ({
 	color: 'rgba(240, 240, 240, 0.8)',
 	display: "flex",
 	flexDirection: "row",
-	justifyContent: "center",
+	justifyContent: "space-between",
 	alignItems: "center",
 	height: "100%"
-  },
-  clock: {
-    position: "absolute",
-    fontSize: "20px",
-  },
+  }
 }));
 
 class Clock extends React.Component {
 	
-  constructor(props) {
-      super(props);
-      this.state = {
-          time: new Date().toLocaleString()
-      };
+	constructor(props) {
+		super(props);
+		this.state = {
+			time: new Date().toLocaleString()
+		};
+	}
+	componentDidMount() {
+		this.intervalID = setInterval(
+			() => this.tick(),
+			1000
+		);
+	}
+	componentWillUnmount() {
+		clearInterval(this.intervalID);
+	}
+	tick() {
+		this.setState({
+			time: new Date().toLocaleString()
+		});
+	}
+	render() {
+		return (
+			<p style={{fontSize: "25px", margin: 0,  marginLeft: "5px"}}>
+				{this.state.time}
+			</p>
+		);
+	}
   }
-  componentDidMount() {
-      this.intervalID = setInterval(
-          () => this.tick(),
-          1000
-      );
+  class TimeZone extends React.Component {
+	
+	constructor(props) {
+		super(props);
+		this.state = {
+			timeZone: "GTM-3"
+		};
+	}
+	componentDidMount() {
+		this.intervalID = setInterval(
+			() => this.updateTimeZone(),
+			600000
+		);
+	}
+	componentWillUnmount() {
+		clearInterval(this.intervalID);
+	}
+	render() {
+		return (
+			<p style={{fontSize: "25px", margin: 0, marginRight: "10px"}}>
+				{this.state.timeZone}
+			</p>
+		);
+	}
   }
-  componentWillUnmount() {
-      clearInterval(this.intervalID);
-  }
-  tick() {
-      this.setState({
-          time: new Date().toLocaleString()
-      });
-  }
-  render() {
-      return (
-          <p style={{position: "absolute", fontSize: "25px", left: "2px", bottom: "2px", margin: 0}}>
-			  {this.state.time}
-          </p>
-      );
-  }
-}
 
 const FooterStyle = styled.div`
   width: 100%;
@@ -61,14 +82,15 @@ const FooterStyle = styled.div`
 `;
 
 function Footer() {
-	const classes = useStyles()
+  const classes = useStyles()
   return (
     <FooterStyle >
       <Typography variant="body2" color="textSecondary" className={classes.footerInfo}>
         
-        <Clock className={classes.clock}/>
+        <Clock />
         
         <p style={{margin: 0}}>Copyright © SpaceDream</p>
+		<TimeZone />
       </Typography>
     </FooterStyle>
   );
