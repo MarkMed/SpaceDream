@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 function Footer() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © SpaceDream'}
+      {'Copyright © SpaceDream '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>

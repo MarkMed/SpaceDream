@@ -6,6 +6,7 @@ import { Formik } from "formik";
 import * as Yup from 'yup';
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import Grid from '@material-ui/core/Grid';
 import {
   BrowserRouter as Router,
   Switch,
@@ -128,6 +129,16 @@ const RegisterForm = () => {
                 >
                   REGISTER
                 </Button>
+                <Grid container>
+                  <Grid item xs>
+                  </Grid>
+                  <Grid item>
+                    <Link to="/login">
+                      {"Already have an account? Sign In"}
+                    </Link>
+                  </Grid>
+                </Grid>
+
               </FormContainer>
             </form>
           )}

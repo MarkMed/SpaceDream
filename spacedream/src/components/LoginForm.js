@@ -9,6 +9,7 @@ import { gql } from "apollo-boost";
 import Row from 'react-bootstrap/Row'
 import Spinner from 'react-bootstrap/Spinner'
 import { withRouter } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 import {
   BrowserRouter as Router,
   Switch,
@@ -117,6 +118,20 @@ const LoginForm = () => {
                     >
                       LOGIN
                     </Button>
+
+                    <Grid container>
+                      <Grid item xs>
+                        <Link to="/register">
+                          Forgot password?
+                        </Link>
+                      </Grid>
+                      <Grid item>
+                        <Link to="/register">
+                          {"Don't have an account? Sign Up"}
+                        </Link>
+                      </Grid>
+                    </Grid>
+
                   </FormContainer>
                 </form>
                 {loading &&
