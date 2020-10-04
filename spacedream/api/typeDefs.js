@@ -1,129 +1,108 @@
 const { gql } = require("apollo-server-micro");
 
 const typeDefs = gql`
+
+    enum TypeENUM {
+        EXERCISE
+        SLEEP
+        FOOD
+        OTHER
+    }
+
     type Query {
-        astronaut(id: ID!): Astronaut
-        astronauts: [Astronaut]
-
-        physician(id: ID!): Physician
-        physicians: [Physician]
-
-        admin(id: ID!): Admin
-        admins: [Admin]
+        user(id: ID!): User
+        users: [User]
         
-        feedback(id: ID!): Feedback
-        feedbacks(eventId: ID!): [Feedback]
-        feedbacksByEvent(eventId: ID!): Feedback
-        feedbacksByAstronaut(astronautId: ID!): Feedback
-
         event(id: ID!): Event
         events(userId: ID!): [Event]
+        eventType(eventId: ID!): EventType
+        
+        foodById(id: ID!): Food
+        foodByUserId(userId: ID!): Food
+        foodByEventId(eventId: ID!): Food
+        foods(userId: ID!): [Food]
     }
 
-    type Astronaut {
+    type User {
         id: ID
         fullname: String!
-        username: String!
+        email: String!
+        password: String!
         token: String
     }
 
-    type Physician {
+    type Food {
         id: ID
-        fullname: String!
-        username: String!
-        token: String
-    }
-
-    type Admin {
-        id: ID
-        fullname: String!
-        username: String!
-        token: String
+        eventId: String!
+        userId: String!
+        name: String!
+        proteins: Float!
+        fats: Float!
+        carbohydrates: Float!
     }
 
     type Event {
         id: ID
-        title: String!
+        type: String!
+        userId: String!
+        startDate: String!
+        endDate: String!
         allDay: Boolean!
-        start: String!,
-        end: String!,
-        description: String,
-        astronautId: String,
-        physicianId: String,
-        adminId: String,
-        feedbacks: [Feedback]
+        text: String!
     }
 
-    type Feedback {
+    type EventType {
         id: ID
-        astronautId: ID!
-        eventId: ID!
-        description: String!
-        feedbackAstronaut: FeedbackAstronaut
-    }
-
-    type FeedbackAstronaut {
-        id: ID
-        astronautId: ID!
-        feedbackId: ID!
-        astronaut: Astronaut
+        name: TypeENUM!
     }
 
     type Mutation {
         login(input: LoginInput!): LoginResponse
-        registerAstronaut(input: RegisterAstronaut!): Astronaut!
-        registerPhysician(input: RegisterPhysician!): Physician!
-        registerAdmin(input: RegisterAdmin!): Admin!
+        register(input: RegisterInput!): User!
+        registerFood(input: RegisterFood!): Food!
         registerEvent(input: RegisterEvent!): Event!
-        registerFeedback(input: RegisterFeedback!): Feedback!
+        registerEventType(input: RegisterEventType!): EventType!
     }
     
     input LoginInput {
-        username: String!
+        email: String!
+        password: String!
     }
 
     type LoginResponse {
-        astronaut: Astronaut,
-        physician: Physician,
-        admin: Admin, 
+        user: User
         ok: Boolean!
         error: String
     }
 
-    input RegisterAstronaut {
+    input RegisterInput {
         fullname: String!
-        username: String!
-        ok: Boolean!
+        email: String!
+        password: String!
     }
 
-    input RegisterPhysician {
-        fullname: String!
-        username: String!
-        ok: Boolean!
-    }
-
-    input RegisterAdmin {
-        fullname: String!
-        username: String!
+    input RegisterFood {
+        eventId: String!
+        userId: String!
+        name: String!
+        proteins: Float!
+        fats: Float!
+        carbohydrates: Float!
         ok: Boolean!
     }
 
     input RegisterEvent {
-        title: String!
+        type: String!
+        userId: String!
+        startDate: String!
+        endDate: String! 
         allDay: Boolean!
-        start: String!,
-        end: String!,
-        description: String,
-        astronautId: String,
-        physicianId: String,
-        adminId: String
+        text: String!
         ok: Boolean!
     }
 
-    input RegisterFeedback {
-        astronautId: ID!
-        eventId: ID!
-        description: String!
+    input RegisterEventType {
+        name: String!
         ok: Boolean!
     }
 `;

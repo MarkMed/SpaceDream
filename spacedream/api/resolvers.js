@@ -9,98 +9,58 @@ mongoose.connect(CONNECTION_STRING, {
     useUnifiedTopology: true
 });
 
-const Astronaut = mongoose.model("Astronaut", {
+const User = mongoose.model("User", {
     fullname: String,
-    username: String
+    email: String,
+    password: String
 });
 
-const Physician = mongoose.model("Physician", {
-    fullname: String,
-    username: String
-});
-
-const Admin = mongoose.model("Admin", {
-    fullname: String,
-    username: String
+const Food = mongoose.model("Food", {
+    eventId: String,
+    userId: String,
+    name: String,
+    proteins: Number,
+    fats: Number,
+    carbohydrates: Number
 });
 
 const Event = mongoose.model("Event", {
-    astronautId: String,
-    physicianId: String,
-    adminId: String,
-    description: String,
-    type: String
-})
+    type: String,
+    userId: String,
+    startDate: String,
+    endDate: String,
+    allDay: Boolean,
+    text: String
+});
 
-const Feedback = mongoose.model("Feedback", {
-    astronautId: String,
-    eventId: String,
-    description: String
-})
-
-
-const FeedbackAstronaut = mongoose.model("FeedbackAstronaut", {
-    astronautId: String,
-    feedbackId: String
-})
+const EventType = mongoose.model("EventType", {
+    name : String
+});
 
 const resolvers = {
     Query: {
+        user: (_, args) => {
+            return User.findById(args.id);
+        },
+        food: (_, args) => {
+            return Food.findById(args.id);
+        },
         event: (_, args) => {
             return Event.findById(args.id);
         },
-        astronaut: (_, args) => {
-            return Astronaut.findById(args.id);
+        eventType: (_, args) => {
+            return EventType.find({ name: args.name });
         },
-        physician: (_, args) => {
-            return Physician.findById(args.id);
-        },
-        admin: (_, args) => {
-            return Admin.findById(args.id);
-        },
-        feedbacksByEvent: (_, args) => {
-            return Feedback.find({ eventId: args.eventId });
-        },
-        feedbacksByAstronaut: (_, args, context, info) => {
-            return Feedback.find({ userId: args.userId });
-        },
-        astronauts: () => Astronaut.find(),
-        physicians: () => Physician.find(),
-        admins: () => Admin.find()
+        users: () => User.find(),
+        foods: () => Food.find(),
+        eventTypes: () => EventType.find()
     },
-    // Event: {
-    //     feedbacks(parent) {
-    //         return Review.find({ eventId: parent.id });
-    //     }
-    // },
-    // Feedback: {
-    //     astronaut(parent) {
-    //         return Astronaut.findById(parent.userId);
-    //     },
-    //     feedbackAstronaut(parent) {
-    //         return FeedbackAstronaut.findById(parent.astronautId);
-    //     }
-    // },
-    // FeedbackAstronaut: {
-    //     astronaut(parent) {
-    //         return Astronaut.findById(parent.astronautId);
-    //     }
-    // },
     Mutation: {
-        login: async (_, { input }) => {
-            const user = await Astronaut.findOne({
-                username: input.username
+        login: async (_, { input }) => { 
+            const user = await User.findOne({
+                email: input.email, 
+                password: input.password
             });
-            if (user === null) {
-                user = await Physician.findOne({
-                    username: input.username
-                });
-                if (user === null) {
-                    user = await Admin.findOne({
-                        username: input.username
-                    });
-                }
-            }
             if (user === null) {
                 return {
                     ok: false,
@@ -108,8 +68,8 @@ const resolvers = {
                 };
             }
             else {
-                const { _id, username, fullname } = user;
-                const token = jwt.sign({ _id, username, fullname }, JWT_SECRET);
+                const { _id, email, fullname } = user;
+                const token = jwt.sign({ _id, email, fullname }, JWT_SECRET);
                 user.token = token;
                 return {
                     ok: true,
@@ -117,97 +77,24 @@ const resolvers = {
                 }
             }
         },
-        registerAstronaut: async (_, { input }) => {
-            const astronaut = await Astronaut.findOne({ username: input.username })
-            if (astronaut === null)
-                astronaut = await Physician.findOne({ username: input.username })
-            if (astronaut === null)
-                astronaut = await Admin.findOne({ username: input.username })
-
-            if (astronaut === null) {
-                astronaut = await new Astronaut(input).save();
-                const { _id, username, fullname } = astronaut;
-                const token = jwt.sign({ _id, username, fullname }, JWT_SECRET);
-                astronaut.token = token;
-                return {
-                    ok: true,
-                    astronaut
-                }
-            }
-            else {
-                return {
-                    ok: false,
-                    error: "Astronaut already exists"
-                };
-            }
+        register: async (_, { input }) => {
+            const user = await new User(input).save();
+            const { _id, email, fullname } = user;
+            const token = jwt.sign({ _id, email, fullname }, JWT_SECRET);
+            user.token = token;
+            return user;
         },
-        registerPhysician: async (_, { input }) => {
-            const physician = await Astronaut.findOne({ username: input.username })
-            if (physician === null)
-                physician = await Physician.findOne({ username: input.username })
-            if (physician === null)
-                physician = await Admin.findOne({ username: input.username })
-
-            if (physician === null) {
-                physician = await new Physician(input).save();
-                const { _id, username, fullname } = physician;
-                const token = jwt.sign({ _id, username, fullname }, JWT_SECRET);
-                physician.token = token;
-                return {
-                    ok: true,
-                    physician
-                }
-            }
-            else {
-                return {
-                    ok: false,
-                    error: "Physician already exists"
-                };
-            }
-
-            //const physician = await new Physician(input).save();
-            const { _id, username, fullname } = physician;
-            const token = jwt.sign({ _id, username, fullname }, JWT_SECRET);
-            physician.token = token;
-            return physician;
-        },
-        registerAdmin: async (_, { input }) => {
-            const admin = await Admin.findOne({ username: input.username })
-            if (admin === null)
-                admin = await Physician.findOne({ username: input.username })
-            if (admin === null)
-                admin = await Admin.findOne({ username: input.username })
-
-            if (admin === null) {
-                admin = await new Admin(input).save();
-                const { _id, username, fullname } = admin;
-                const token = jwt.sign({ _id, username, fullname }, JWT_SECRET);
-                admin.token = token;
-                return {
-                    ok: true,
-                    admin
-                }
-            }
-            else {
-                return {
-                    ok: false,
-                    error: "Admin already exists"
-                };
-            }
-
-            //const admin = await new Admin(input).save();
-            const { _id, username, fullname } = admin;
-            const token = jwt.sign({ _id, username, fullname }, JWT_SECRET);
-            admin.token = token;
-            return admin;
+        registerFood: (_, { input }) => {
+            const food = new Food(input);
+            return food.save();
         },
         registerEvent: (_, { input }) => {
             const event = new Event(input);
             return event.save();
         },
-        registerFeedback: (_, { input }) => {
-            const feedback = new Feedback(input);
-            return feedback.save();
+        registerEventType: (_, { input }) => {
+            const eventType = new EventType(input);
+            return eventType.save();
         }
     }
 };
