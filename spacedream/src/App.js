@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 import { ApolloProvider } from "@apollo/react-hooks";
 import client from "./client";
 import Header from './components/Header'
@@ -12,8 +13,10 @@ import {
   Route
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import './App.css';
+
+
+import DarkModeToggle from './components/theme/darkmodetoggle';
 
 function App() {
   return (
@@ -21,6 +24,7 @@ function App() {
       <Router>
         <Route path="/" component={Header} />
         <Route path="/" component={Welcome} />
+        <DarkModeToggle />
         <Switch>
           <Route path="/login" component={LoginForm} />
           <Route path="/register" component={RegisterForm} />

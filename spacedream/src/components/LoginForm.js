@@ -19,8 +19,11 @@ import {
 } from "react-router-dom";
 
 const validations = Yup.object().shape({
-  username: Yup.string()
-    .required('Required')
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Required'),
+  password: Yup.string()
+    .required('Password is required')
 })
 
 const LOGIN = gql`
@@ -31,7 +34,8 @@ const LOGIN = gql`
       user {
         id,
         fullname,
-        username
+        email,
+        password 
       }
     }
   }
@@ -53,10 +57,11 @@ const LoginForm = () => {
         </div>
         <br />
         <Formik
-          initialValues={{ username: '' }}
+          initialValues={{ email: '', password: '' }}
           validationSchema={validations}
           onSubmit={(values, { setSubmitting }) => {
             setErrorState('');
+
             login({
               variables: {
                 input: values
@@ -84,13 +89,24 @@ const LoginForm = () => {
                 <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                   <FormContainer>
                     <TextField
-                      error={errors.username && touched.username}
-                      helperText={errors.username && touched.username ? errors.username : ' '}
+                      error={errors.email && touched.email}
+                      helperText={errors.email && touched.email ? errors.email : ' '}
                       variant="filled"
-                      id="username"
-                      label="Username"
-                      value={values.username}
-                      onChange={handleChange("username")}
+                      id="email"
+                      label="Email"
+                      value={values.email}
+                      onChange={handleChange("email")}
+                    />
+                    <br />
+                    <TextField
+                      error={errors.password && touched.password}
+                      helperText={errors.password && touched.password ? errors.password : ' '}
+                      variant="filled"
+                      id="password"
+                      label="Password"
+                      type="password"
+                      value={values.password}
+                      onChange={handleChange("password")}
                     />
                     <br />
                     <Button
@@ -107,7 +123,7 @@ const LoginForm = () => {
                   <Row className="justify-content-md-center">
                     <Spinner animation="border" />
                   </Row>}
-                {error && <p>User not found</p>}
+                {error && <p>Error</p>}
                 {errorState && <p>{errorState}</p>}
               </div>
             )}
