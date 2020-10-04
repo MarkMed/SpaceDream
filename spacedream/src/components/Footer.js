@@ -57,7 +57,7 @@ const FooterStyle = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 99999;
+  z-index: 1000;
 `;
 
 function Footer() {

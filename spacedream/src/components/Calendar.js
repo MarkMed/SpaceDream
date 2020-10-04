@@ -186,85 +186,93 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       cancelAppointment();
     };
 
+    const userId = localStorage.getItem('userId') != null;
+
     return (
-      <AppointmentForm.Overlay
-        visible={visible}
-        target={target}
-        fullSize
-        onHide={onHide}
-      >
-        <div>
-          <div className={classes.header}>
-            <IconButton
-              className={classes.closeButton}
-              onClick={cancelChanges}
-            >
-              <Close color="action" />
-            </IconButton>
-          </div>
-          <div className={classes.content}>
-            <div className={classes.wrapper}>
-              <Create className={classes.icon} color="action" />
-              <TextField
-                {...textEditorProps('title')}
-              />
+      <div>
+        {userId != '' ?
+          <AppointmentForm.Overlay
+            visible={visible}
+            target={target}
+            fullSize
+            onHide={onHide}
+          >
+            <div>
+              <div className={classes.header}>
+                <IconButton
+                  className={classes.closeButton}
+                  onClick={cancelChanges}
+                >
+                  <Close color="action" />
+                </IconButton>
+              </div>
+              <div className={classes.content}>
+                <div className={classes.wrapper}>
+                  <Create className={classes.icon} color="action" />
+                  <TextField
+                    {...textEditorProps('title')}
+                  />
+                </div>
+                <div className={classes.wrapper}>
+                  <CalendarToday className={classes.icon} color="action" />
+                  <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <KeyboardDateTimePicker
+                      label="Start Date"
+                      {...pickerEditorProps('startDate')}
+                    />
+                    <KeyboardDateTimePicker
+                      label="End Date"
+                      {...pickerEditorProps('endDate')}
+                    />
+                  </MuiPickersUtilsProvider>
+                </div>
+                <div className={classes.wrapper}>
+                  <LocationOn className={classes.icon} color="action" />
+                  <TextField
+                    {...textEditorProps('location')}
+                  />
+                </div>
+                <div className={classes.wrapper}>
+                  <Notes className={classes.icon} color="action" />
+                  <TextField
+                    {...textEditorProps('notes')}
+                    multiline
+                    rows="6"
+                  />
+                </div>
+              </div>
+              <div className={classes.buttonGroup}>
+                {!isNewAppointment && (
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    className={classes.button}
+                    onClick={() => {
+                      visibleChange();
+                      this.commitAppointment('deleted');
+                    }}
+                  >
+                    Delete
+                  </Button>
+                )}
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => {
+                    visibleChange();
+                    applyChanges();
+                  }}
+                >
+                  {isNewAppointment ? 'Create' : 'Save'}
+                </Button>
+              </div>
             </div>
-            <div className={classes.wrapper}>
-              <CalendarToday className={classes.icon} color="action" />
-              <MuiPickersUtilsProvider utils={MomentUtils}>
-                <KeyboardDateTimePicker
-                  label="Start Date"
-                  {...pickerEditorProps('startDate')}
-                />
-                <KeyboardDateTimePicker
-                  label="End Date"
-                  {...pickerEditorProps('endDate')}
-                />
-              </MuiPickersUtilsProvider>
-            </div>
-            <div className={classes.wrapper}>
-              <LocationOn className={classes.icon} color="action" />
-              <TextField
-                {...textEditorProps('location')}
-              />
-            </div>
-            <div className={classes.wrapper}>
-              <Notes className={classes.icon} color="action" />
-              <TextField
-                {...textEditorProps('notes')}
-                multiline
-                rows="6"
-              />
-            </div>
-          </div>
-          <div className={classes.buttonGroup}>
-            {!isNewAppointment && (
-              <Button
-                variant="outlined"
-                color="secondary"
-                className={classes.button}
-                onClick={() => {
-                  visibleChange();
-                  this.commitAppointment('deleted');
-                }}
-              >
-                Delete
-              </Button>
-            )}
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.button}
-              onClick={() => {
-                visibleChange();
-                applyChanges();
-              }}
-            >
-              {isNewAppointment ? 'Create' : 'Save'}
-            </Button>
-          </div>
-        </div>
-      </AppointmentForm.Overlay>
+          </AppointmentForm.Overlay>
+
+          : ''
+        }
+      </div>
     );
   }
 }
@@ -273,15 +281,15 @@ const AppointmentFormContainer = withStyles(containerStyles, { name: 'Appointmen
 
 const styles = theme => ({
   addButton: {
+    right: "100px",
+    bottom: "3.3%",
     position: 'fixed',
-    bottom: theme.spacing(1) * 3,
-	right: theme.spacing(1) * 4,
-	backgroundColor: "rgb(63,81,181, 1)",
-	transition: "0.2s ease",
-	"&:hover": {
-		transform: "translateY(-4px)",
-		backgroundColor: "rgb(63,81,181, 1)",
-	}
+    backgroundColor: "rgb(63,81,181, 1)",
+    transition: "0.2s ease",
+    "&:hover": {
+      transform: "translateY(-4px)",
+      backgroundColor: "rgb(63,81,181, 1)",
+    }
   },
 });
 

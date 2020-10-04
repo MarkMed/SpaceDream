@@ -10,6 +10,8 @@ import Welcome from "./components/Welcome";
 import MenuBar from "./components/MenuBar"
 import Calendar from "./components/Calendar"
 import Stats from "./components/Stats"
+import Home from "./components/Home"
+import ChatBot from 'react-simple-chatbot';
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,6 +28,24 @@ const Logo = styled.img`
   object-fit: contain;
 `;
 
+const steps = [
+  {
+    id: '1',
+    message: 'What is your name?',
+    trigger: '2',
+  },
+  {
+    id: '2',
+    user: true,
+    trigger: '3',
+  },
+  {
+    id: '3',
+    message: 'Hi {previousValue}, nice to meet you!',
+    end: true,
+  },
+];
+
 function App() {
   var userId = localStorage.getItem('userId');
   return (
@@ -33,6 +53,15 @@ function App() {
       <Router>
         <Route path="/" component={MenuBar} />
         <Route path="/" component={Welcome} />
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <ChatBot
+          headerTitle="Speech Synthesis"
+          speechSynthesis={{ enable: true, lang: 'en' }}
+          steps={steps} 
+          floating={true}
+          />
         <Switch>
           <Route path="/calendar" component={Calendar} />
           <Route path="/stats" component={Stats} />

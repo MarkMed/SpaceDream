@@ -9,23 +9,9 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Summarize from './stats/Summarize';
 import NextSteps from './stats/NextSteps';
-import {nextStepsData} from "../assets/nextStepsData.js";
+import { nextStepsData } from "../assets/nextStepsData.js";
 
-const GET_EVENTS = gql`
-    query EventsByUser($userId: ID!) {
-        events(userId: $userId) {
-            id,
-            type,
-            startDate,
-            endDate,
-            location,
-            title
-        }
-    }
-`;
-
-const {dataSleep,dataMeal, dataTasks, dataExercise} = nextStepsData;
-
+const { dataSleep, dataMeal, dataTasks, dataExercise } = nextStepsData;
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -56,10 +42,10 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-	function TabPanel(props) {
-		const { children, value, index, ...other } = props;
-	
-		return (
+function TabPanel(props) {
+	const { children, value, index, ...other } = props;
+
+	return (
 		<Typography
 			component="div"
 			role="tabpanel"
@@ -70,80 +56,63 @@ const useStyles = makeStyles((theme) => ({
 		>
 			<Box p={3}>{children}</Box>
 		</Typography>
-		);
-	}
-	
-	TabPanel.propTypes = {
-		children: PropTypes.node,
-		index: PropTypes.any.isRequired,
-		value: PropTypes.any.isRequired,
-	};
-	
-	function a11yProps(index) {
-		return {
+	);
+}
+
+TabPanel.propTypes = {
+	children: PropTypes.node,
+	index: PropTypes.any.isRequired,
+	value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+	return {
 		id: `vertical-tab-${index}`,
 		'aria-controls': `vertical-tabpanel-${index}`,
-		};
-	}
+	};
+}
 
 const Stats = (props) => {
-    /*const { loading, error, data } = useQuery(GET_PLACES, { variables: { continentId } });
-
-    if (loading) return (
-        <Row className="justify-content-md-center">
-            <br />
-            <Spinner animation="border" />
-            <br />
-        </Row>
-    )
-    if (error) return (
-        <Alert variant="danger">
-            <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-            <p>
-                {error.message}
-            </p>
-        </Alert>
-    )*/
 	const classes = useStyles();
 	const [value, setValue] = React.useState(0);
-  
+
 	function handleChange(event, newValue) {
-	  setValue(newValue);
+		setValue(newValue);
 	}
-  
+
 	return (
-	  <div className={classes.root}>
-		<Tabs
-		  orientation="vertical"
-		  value={value}
-		  onChange={handleChange}
-		  aria-label="Vertical tabs example"
-		  className={classes.tabs}
-		  indicatorColor="primary"
-		  textColor="primary"
-		>
-			<Tab className={classes.tab} label="Nutrition" {...a11yProps(0)}/>
-			<Tab className={classes.tab} label="Tasks" {...a11yProps(1)} />
-			<Tab className={classes.tab} label="Exercise" {...a11yProps(2)} />
-			<Tab className={classes.tab} label="Sleep" {...a11yProps(3)} />
-		</Tabs>
-		<TabPanel className={classes.tabPanel} value={value} index={0}>
-		  <NextSteps data={dataMeal}> next meals</NextSteps>
-		  <Summarize />
-		</TabPanel>
-		<TabPanel className={classes.tabPanel} value={value} index={1}>
-		  <NextSteps data={dataTasks}>next tasks to do</NextSteps>
-		  <Summarize />
-		</TabPanel>
-		<TabPanel className={classes.tabPanel} value={value} index={2}>
-		  <NextSteps data={dataExercise}>next Exercise sessions</NextSteps>
-		  <Summarize />
-		</TabPanel>
-		<TabPanel className={classes.tabPanel} value={value} index={3}>
-		  <NextSteps data={dataSleep}>Sleep Time!</NextSteps>
-		  <Summarize />
-		</TabPanel>
-	  </div>
+		<div className={classes.root}>
+			<Tabs
+				orientation="vertical"
+				value={value}
+				onChange={handleChange}
+				aria-label="Vertical tabs example"
+				className={classes.tabs}
+				indicatorColor="primary"
+				textColor="primary"
+			>
+				<Tab className={classes.tab} label="Nutrition" {...a11yProps(0)} />
+				<Tab className={classes.tab} label="Tasks" {...a11yProps(1)} />
+				<Tab className={classes.tab} label="Exercise" {...a11yProps(2)} />
+				<Tab className={classes.tab} label="Sleep" {...a11yProps(3)} />
+			</Tabs>
+			<TabPanel className={classes.tabPanel} value={value} index={0}>
+				<NextSteps data={dataMeal}> next meals</NextSteps>
+				<Summarize />
+			</TabPanel>
+			<TabPanel className={classes.tabPanel} value={value} index={1}>
+				<NextSteps data={dataTasks}>next tasks to do</NextSteps>
+				<Summarize />
+			</TabPanel>
+			<TabPanel className={classes.tabPanel} value={value} index={2}>
+				<NextSteps data={dataExercise}>next Exercise sessions</NextSteps>
+				<Summarize />
+			</TabPanel>
+			<TabPanel className={classes.tabPanel} value={value} index={3}>
+				<NextSteps data={dataSleep}>Sleep Time!</NextSteps>
+				<Summarize />
+			</TabPanel>
+		</div>
 	);
 }
 export default Stats;
