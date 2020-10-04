@@ -5,26 +5,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  footerInfo: {
+	color: 'rgba(240, 240, 240, 0.8)',
+	display: "flex",
+	flexDirection: "row",
+	justifyContent: "center",
+	alignItems: "center",
+	height: "100%"
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
+  clock: {
+    position: "absolute",
+    fontSize: "20px",
   },
 }));
 
 class Clock extends React.Component {
+	
   constructor(props) {
       super(props);
       this.state = {
@@ -47,28 +43,32 @@ class Clock extends React.Component {
   }
   render() {
       return (
-          <p className="App-clock">
-              <b>{this.state.time}</b>
+          <p style={{position: "absolute", fontSize: "25px", left: "2px", bottom: "2px", margin: 0}}>
+			  {this.state.time}
           </p>
       );
   }
 }
 
 const FooterStyle = styled.div`
-  position: absolute;
-  bottom: 0;
   width: 100%;
   height: 40px;
+  background: rgba(63, 81, 181, 0.5);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
 `;
 
 function Footer() {
+	const classes = useStyles()
   return (
-    <FooterStyle>
-      <Typography variant="body2" color="textSecondary" align="center" style={{ color: '#c9c9c9' }}>
+    <FooterStyle >
+      <Typography variant="body2" color="textSecondary" className={classes.footerInfo}>
         
-        {'Copyright © SpaceDream '}
-        {new Date().getFullYear()}
-        <Clock />
+        <Clock className={classes.clock}/>
+        
+        <p style={{margin: 0}}>Copyright © SpaceDream</p>
       </Typography>
     </FooterStyle>
   );
