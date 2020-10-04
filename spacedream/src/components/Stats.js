@@ -6,9 +6,21 @@ import Spinner from 'react-bootstrap/Spinner'
 import Row from 'react-bootstrap/Row'
 import Alert from 'react-bootstrap/Alert'
 
+const GET_EVENTS = gql`
+    query EventsByUser($userId: ID!) {
+        events(userId: $userId) {
+            id,
+            type,
+            startDate,
+            endDate,
+            location,
+            title
+        }
+    }
+`;
 
-const Stats = ({ }) => {
-    /*const { loading, error, data } = useQuery(GET_PLACES, { variables: { continentId } });
+const Stats = ({ userId }) => {
+    const { loading, error, data } = useQuery(GET_EVENTS, { variables: { userId } });
 
     if (loading) return (
         <Row className="justify-content-md-center">
@@ -24,7 +36,7 @@ const Stats = ({ }) => {
                 {error.message}
             </p>
         </Alert>
-    )*/
+    )
     return (
         <div>
             <Container maxWidth="md">

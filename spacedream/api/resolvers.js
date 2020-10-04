@@ -15,26 +15,13 @@ const User = mongoose.model("User", {
     password: String
 });
 
-const Food = mongoose.model("Food", {
-    eventId: String,
-    userId: String,
-    name: String,
-    proteins: Number,
-    fats: Number,
-    carbohydrates: Number
-});
-
 const Event = mongoose.model("Event", {
     type: String,
     userId: String,
     startDate: String,
     endDate: String,
-    allDay: Boolean,
-    text: String
-});
-
-const EventType = mongoose.model("EventType", {
-    name : String
+    location: String,
+    title: String
 });
 
 const resolvers = {
@@ -42,18 +29,10 @@ const resolvers = {
         user: (_, args) => {
             return User.findById(args.id);
         },
-        food: (_, args) => {
-            return Food.findById(args.id);
-        },
         event: (_, args) => {
             return Event.findById(args.id);
         },
-        eventType: (_, args) => {
-            return EventType.find({ name: args.name });
-        },
-        users: () => User.find(),
-        foods: () => Food.find(),
-        eventTypes: () => EventType.find()
+        users: () => User.find()
     },
     Mutation: {
         login: async (_, { input }) => { 
@@ -84,17 +63,9 @@ const resolvers = {
             user.token = token;
             return user;
         },
-        registerFood: (_, { input }) => {
-            const food = new Food(input);
-            return food.save();
-        },
         registerEvent: (_, { input }) => {
             const event = new Event(input);
             return event.save();
-        },
-        registerEventType: (_, { input }) => {
-            const eventType = new EventType(input);
-            return eventType.save();
         }
     }
 };
