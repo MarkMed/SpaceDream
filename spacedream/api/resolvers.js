@@ -16,12 +16,16 @@ const User = mongoose.model("User", {
 });
 
 const Event = mongoose.model("Event", {
-    type: String,
+    eventTypeId: String,
     userId: String,
     startDate: String,
     endDate: String,
     location: String,
     title: String
+});
+
+const EventType = mongoose.model("EventType", {
+    name: String
 });
 
 const resolvers = {
@@ -32,7 +36,11 @@ const resolvers = {
         event: (_, args) => {
             return Event.findById(args.id);
         },
-        users: () => User.find()
+        events: (_, args) => {
+            return Event.find({userId: args.userId});
+        },
+        users: () => User.find(),
+        eventsType: () => EventType.find()
     },
     Mutation: {
         login: async (_, { input }) => { 
@@ -55,7 +63,7 @@ const resolvers = {
                     user,
                 }
             }
-        },
+        },      
         register: async (_, { input }) => {
             const user = await new User(input).save();
             const { _id, email, fullname } = user;
@@ -63,9 +71,46 @@ const resolvers = {
             user.token = token;
             return user;
         },
-        registerEvent: (_, { input }) => {
-            const event = new Event(input);
-            return event.save();
+        registerEvent: async (_, { input }) => {
+            const eventCreated = await Event.findOne({
+                startDate: input.startDate,
+                endDate: input.endDate,
+                userId: input.userId,
+                title: input.title
+            });
+            if(eventCreated === null) {
+                const event = new Event(input);
+                event.save();
+                return {
+                    ok: true,
+                    event: event
+                };
+            }
+            else {
+                return {
+                    ok: false,
+                    error: "Event already exist"
+                };
+            } 
+        },
+        registerEventType: async (_, { input }) => {
+            const eventTypeCreated = await EventType.findOne({
+                name: input.name
+            });
+            if( eventTypeCreated === null) {
+                const eventType = new EventType(input);
+                eventType.save();
+                return {
+                    ok: true,
+                    eventType: eventType
+                };
+            }
+            else {
+                return {
+                    ok: false,
+                    error: "Event Type " + eventTypeCreated.name + " already exist"
+                };
+            }
         }
     }
 };

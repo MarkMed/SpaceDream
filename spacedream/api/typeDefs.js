@@ -8,6 +8,8 @@ const typeDefs = gql`
         
         event(id: ID!): Event
         events(userId: ID!): [Event]
+
+        eventsType(): [EventType]
     }
 
     type User {
@@ -20,29 +22,48 @@ const typeDefs = gql`
 
     type Event {
         id: ID
-        type: String!
         userId: String!
         startDate: String!
         endDate: String!
         location: String!
         title: String!
+        eventTypeId: String
+        eventType: EventType
+    }
+
+    type EventType { 
+        id: ID
+        name: String!
     }
 
     type Mutation {
         login(input: LoginInput!): LoginResponse
         register(input: RegisterInput!): User!
-        registerEvent(input: RegisterEvent!): Event!
+        registerEvent(input: RegisterEvent!): EventResponse!
+        registerEventType(input: RegisterEventType!): EventTypeResponse!
     }
     
-    input LoginInput {
-        email: String!
-        password: String!
-    }
-
     type LoginResponse {
         user: User
         ok: Boolean!
         error: String
+    }
+
+    type EventTypeResponse {
+        eventType: EventType
+        ok: Boolean!
+        error: String    
+    }
+
+    type EventResponse {
+        event: Event
+        ok: Boolean!
+        error: String
+    }
+
+    input LoginInput {
+        email: String!
+        password: String!
     }
 
     input RegisterInput {
@@ -52,13 +73,15 @@ const typeDefs = gql`
     }
 
     input RegisterEvent {
-        type: String!
         userId: String!
         startDate: String!
-        endDate: String! 
-        allDay: Boolean!
-        text: String!
-        ok: Boolean!
+        endDate: String!
+        title: String!
+        location: String! 
+    }
+
+    input RegisterEventType {
+        name: String!
     }
 `;
 
