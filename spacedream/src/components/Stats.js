@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Summarize from './stats/Summarize';
 import NextSteps from './stats/NextSteps';
+import Sugestions from './stats/sugestions';
 import { nextStepsData } from "../assets/nextStepsData.js";
 
 const { dataSleep, dataMeal, dataTasks, dataExercise } = nextStepsData;
@@ -99,6 +100,7 @@ const Stats = (props) => {
 			<TabPanel className={classes.tabPanel} value={value} index={0}>
 				<NextSteps data={dataMeal}> next meals</NextSteps>
 				<Summarize />
+				<Sugestions type={"Meal"} />
 			</TabPanel>
 			<TabPanel className={classes.tabPanel} value={value} index={1}>
 				<NextSteps data={dataTasks}>next tasks to do</NextSteps>
