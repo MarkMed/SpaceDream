@@ -24,6 +24,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+class Clock extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          time: new Date().toLocaleString()
+      };
+  }
+  componentDidMount() {
+      this.intervalID = setInterval(
+          () => this.tick(),
+          1000
+      );
+  }
+  componentWillUnmount() {
+      clearInterval(this.intervalID);
+  }
+  tick() {
+      this.setState({
+          time: new Date().toLocaleString()
+      });
+  }
+  render() {
+      return (
+          <p className="App-clock">
+              <b>{this.state.time}</b>
+          </p>
+      );
+  }
+}
+
 const FooterStyle = styled.div`
   position: absolute;
   bottom: 0;
@@ -35,9 +65,10 @@ function Footer() {
   return (
     <FooterStyle>
       <Typography variant="body2" color="textSecondary" align="center" style={{ color: '#c9c9c9' }}>
+        
         {'Copyright © SpaceDream '}
         {new Date().getFullYear()}
-        {'.'}
+        <Clock />
       </Typography>
     </FooterStyle>
   );
