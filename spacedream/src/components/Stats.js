@@ -10,6 +10,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import Summarize from './stats/Summarize';
 import NextSteps from './stats/NextSteps'
 
+const GET_EVENTS = gql`
+    query EventsByUser($userId: ID!) {
+        events(userId: $userId) {
+            id,
+            type,
+            startDate,
+            endDate,
+            location,
+            title
+        }
+    }
+`;
 
 
 

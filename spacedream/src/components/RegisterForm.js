@@ -15,6 +15,13 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom";
+import {
+  fade,
+  ThemeProvider,
+  withStyles,
+  makeStyles,
+  createMuiTheme,
+} from '@material-ui/core/styles';
 
 const REGISTER_MUTATION = gql`
   mutation register($input: RegisterInput!) {
@@ -45,7 +52,40 @@ const validations = Yup.object().shape({
       })
 })
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
+
+const CssTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: '#3f51b5',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#3f51b5',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#3f51b5',
+      },
+      '&:hover fieldset': {
+        borderColor: '#3f51b5',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#3f51b5',
+      },
+    },
+  },
+})(TextField);
+
 const RegisterForm = () => {
+  const classes = useStyles();
   const [register] = useMutation(REGISTER_MUTATION);
 
   return (
@@ -82,30 +122,33 @@ const RegisterForm = () => {
         }) => (
             <form noValidate autoComplete="off" onSubmit={handleSubmit}>
               <FormContainer>
-                <TextField
+                <CssTextField
+                  className={classes.margin}
+                  variant="outlined"
                   error={errors.fullname && touched.fullname}
                   helperText={errors.fullname && touched.fullname ? errors.fullname : ' '}
-                  variant="filled"
                   id="fullname"
                   label="Fullname"
                   value={values.fullname}
                   onChange={handleChange("fullname")}
                 />
                 <br />
-                <TextField
+                <CssTextField
+                  className={classes.margin}
+                  variant="outlined"
                   error={errors.email && touched.email}
                   helperText={errors.email && touched.email ? errors.email : ' '}
-                  variant="filled"
                   id="email"
                   label="Email"
                   value={values.email}
                   onChange={handleChange("email")}
                 />
                 <br />
-                <TextField
+                <CssTextField
+                  className={classes.margin}
+                  variant="outlined"
                   error={errors.password && touched.password}
                   helperText={errors.password && touched.password ? errors.password : ' '}
-                  variant="filled"
                   id="password"
                   label="Password"
                   type="password"
@@ -113,10 +156,11 @@ const RegisterForm = () => {
                   onChange={handleChange("password")}
                 />
                 <br />
-                <TextField
+                <CssTextField
+                  className={classes.margin}
+                  variant="outlined"
                   error={errors.repeatPassword && touched.repeatPassword}
                   helperText={errors.repeatPassword && touched.repeatPassword ? errors.repeatPassword : ' '}
-                  variant="filled"
                   id="repeatPassword"
                   label="Repeat password"
                   type="password"
