@@ -5,6 +5,8 @@ import { useQuery } from '@apollo/react-hooks';
 import Spinner from 'react-bootstrap/Spinner'
 import Row from 'react-bootstrap/Row'
 import Alert from 'react-bootstrap/Alert'
+import { render } from "react-dom";
+import Demo from "./calendarFolder/demo";
 
 const GET_EVENTS = gql`
     query EventsByUser($userId: ID!) {
@@ -20,9 +22,9 @@ const GET_EVENTS = gql`
 `;
 
 const Calendar = ({ userId }) => {
-    const { loading, error, data } = useQuery(GET_EVENTS, { variables: { userId } });
+    //const { loading, error, data } = useQuery(GET_EVENTS, { variables: { userId } });
 
-    if (loading) return (
+    /*if (loading) return (
         <Row className="justify-content-md-center">
             <br />
             <Spinner animation="border" />
@@ -36,12 +38,12 @@ const Calendar = ({ userId }) => {
                 {error.message}
             </p>
         </Alert>
-    )
+    )*/
     return (
         <div>
             <Container maxWidth="md">
                 <br />
-                CALENDAR
+                <Demo/>
             </Container>
         </div>
     );
