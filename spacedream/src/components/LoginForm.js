@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row'
 import Spinner from 'react-bootstrap/Spinner'
 import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
+import { green } from '@material-ui/core/colors';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,6 +19,13 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom";
+import {
+  fade,
+  ThemeProvider,
+  withStyles,
+  makeStyles,
+  createMuiTheme,
+} from '@material-ui/core/styles';
 
 const validations = Yup.object().shape({
   email: Yup.string()
@@ -42,7 +50,46 @@ const LOGIN = gql`
   }
 `;
 
+const theme = createMuiTheme({
+  palette: {
+    primary: green,
+  },
+});
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
+
+const CssTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: '#3f51b5',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#3f51b5',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#3f51b5',
+      },
+      '&:hover fieldset': {
+        borderColor: '#3f51b5',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#3f51b5',
+      },
+    },
+  },
+})(TextField);
+
 const LoginForm = () => {
+  const classes = useStyles();
   const [errorState, setErrorState] = React.useState('');
   const [login, { loading, error }] = useMutation(LOGIN);
   var show = true;
@@ -51,10 +98,10 @@ const LoginForm = () => {
     return (
       <Container maxWidth="sm">
         <div style={{ textAlign: "center" }}>
-          <br/>
+          <br />
           <Logo src={logo} />
-          <br/>
-          <br/>
+          <br />
+          <br />
           <Typography variant="h4">
             Login
         </Typography>
@@ -92,20 +139,22 @@ const LoginForm = () => {
               <div>
                 <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                   <FormContainer>
-                    <TextField
+                    <CssTextField
+                      className={classes.margin}
+                      variant="outlined"
                       error={errors.email && touched.email}
                       helperText={errors.email && touched.email ? errors.email : ' '}
-                      variant="filled"
                       id="email"
                       label="Email"
                       value={values.email}
                       onChange={handleChange("email")}
                     />
                     <br />
-                    <TextField
+                    <CssTextField
+                      className={classes.margin}
+                      variant="outlined"
                       error={errors.password && touched.password}
                       helperText={errors.password && touched.password ? errors.password : ' '}
-                      variant="filled"
                       id="password"
                       label="Password"
                       type="password"
