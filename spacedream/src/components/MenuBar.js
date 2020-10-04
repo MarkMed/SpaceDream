@@ -94,15 +94,34 @@ export default function ButtonAppBar() {
                 <AppBar position="static">
                     <Toolbar>
                         <Typography variant="h6" className={classes.title}>
-                            <Link to="/" style={{ color: '#FFF', textDecoration: 'none' }} >
+                            <Link to="/calendar" style={{ color: '#FFF', textDecoration: 'none' }} >
                                 <Logo src={logo} />
-                                    SpaceDream
                             </Link>
                         </Typography>
-
-                        <Link to="/" style={{ color: '#FFF' }} >
-                            <Button color="inherit">Home</Button>
-                        </Link>
+                        {userId == '' ?
+                            <Link to="/calendar" style={{ color: '#FFF' }} >
+                                <Button color="inherit">Calendar</Button>
+                            </Link>
+                            : ''
+                        }
+                        {userId == '' ?
+                            <Link to="/nutrition" style={{ color: '#FFF' }} >
+                                <Button color="inherit">Nutrition</Button>
+                            </Link>
+                            : ''
+                        }
+                        {userId == '' ?
+                            <Link to="/sleep" style={{ color: '#FFF' }} >
+                                <Button color="inherit">Sleep</Button>
+                            </Link>
+                            : ''
+                        }
+                        {userId == '' ?
+                            <Link to="/exercise" style={{ color: '#FFF' }} >
+                                <Button color="inherit">Exercise</Button>
+                            </Link>
+                            : ''
+                        }
                         {userId == '' ?
                             <Link to="/login" style={{ color: '#FFF' }} >
                                 <Button color="inherit">Login</Button>
