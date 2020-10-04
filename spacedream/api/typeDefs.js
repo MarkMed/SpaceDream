@@ -9,7 +9,7 @@ const typeDefs = gql`
         event(id: ID!): Event
         events(userId: ID!): [Event]
 
-        eventsType(): [EventType]
+        eventsType: [EventType]
     }
 
     type User {
