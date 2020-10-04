@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const CardsList = styled(Box)({
 	width: "100%",
 	height: "20%",
-	display: "block"
+	display: "flex"
 })
 
 function Title(props) {
@@ -70,6 +70,33 @@ const data = [
 		timeStart: "03:00pm",
 		timeEnd: "04:00pm",
 		title: "Have lunch (Fresh Corn!)",
+		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
+	},
+	{
+		type: "meal",
+		user: "markmed",
+		userName: "Marcos Medina",
+		timeStart: "08:00pm",
+		timeEnd: "09:00pm",
+		title: "Dinner (Steak!)",
+		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
+	},
+	{
+		type: "meal",
+		user: "markmed",
+		userName: "Marcos Medina",
+		timeStart: "08:00pm",
+		timeEnd: "09:00pm",
+		title: "Dinner (Steak!)",
+		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
+	},
+	{
+		type: "meal",
+		user: "markmed",
+		userName: "Marcos Medina",
+		timeStart: "08:00pm",
+		timeEnd: "09:00pm",
+		title: "Dinner (Steak!)",
 		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
 	},
 	{

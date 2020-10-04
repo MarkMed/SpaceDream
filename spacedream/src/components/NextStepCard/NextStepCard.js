@@ -1,19 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Box, Button, Menu, MenuItem } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -23,8 +16,7 @@ import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-	  maxWidth: 300,
-	  float: "left",
+	  maxWidth: 500,
 	  marginRight: "30px"
 	},
 	optionMenu: {
@@ -76,6 +68,9 @@ const NextStepCard = (props) => {
 		<CardContent>
 			<Typography gutterBottom variant="h5" component="h2" noWrap>
 				{data.title}
+			</Typography>			
+			<Typography gutterBottom variant="span" component="span" noWrap>
+				{data.timeStart} - {data.timeEnd}
 			</Typography>
 			<Typography variant="body2" color="textSecondary" component="p" noWrap>
 				{data.description}
@@ -135,46 +130,6 @@ const NextStepCard = (props) => {
 			}
 			title={data.userName}
 			subheader={data.user}></CardHeader>
-		<CardActions disableSpacing>
-			<IconButton aria-label="add to favorites">
-			<FavoriteIcon />
-			</IconButton>
-			<IconButton aria-label="share">
-			<ShareIcon />
-			</IconButton>
-			<IconButton
-			className={clsx(classes.expand, {
-				[classes.expandOpen]: expanded,
-			})}
-			onClick={handleExpandClick}
-			aria-expanded={expanded}
-			aria-label="show more"
-			>
-			<ExpandMoreIcon />
-			</IconButton>
-		</CardActions>
-			<Collapse in={expanded} timeout="auto" unmountOnExit>
-				<Card className={classes.cardComment}>
-					<CardContent>
-						<Typography gutterBottom variant="h5" component="h5">
-							James
-						</Typography>
-						<Typography variant="body2" color="textSecondary" component="p">
-							Lorem ipsum dolor sit, amet consectetur adipisicing elit!
-						</Typography>
-					</CardContent>
-				</Card>
-				<Card className={classes.cardComment}>
-					<CardContent>
-						<Typography gutterBottom variant="h5" component="h5">
-							Marie
-						</Typography>
-						<Typography variant="body2" color="textSecondary" component="p">
-							Fugit consectetur cum natus porro rem ab illo odio harum sint?
-						</Typography>
-					</CardContent>
-				</Card>
-			</Collapse>
 		</Card>
 	);
 }
