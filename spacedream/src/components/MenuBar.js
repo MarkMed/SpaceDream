@@ -16,8 +16,8 @@ import {
 } from "react-router-dom";
 
 const Logo = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 120px;
+  height: auto;
   object-fit: contain;
 `;
 
@@ -105,20 +105,8 @@ export default function ButtonAppBar() {
                             : ''
                         }
                         {userId == '' ?
-                            <Link to="/nutrition" style={{ color: '#FFF' }} >
-                                <Button color="inherit">Nutrition</Button>
-                            </Link>
-                            : ''
-                        }
-                        {userId == '' ?
-                            <Link to="/sleep" style={{ color: '#FFF' }} >
-                                <Button color="inherit">Sleep</Button>
-                            </Link>
-                            : ''
-                        }
-                        {userId == '' ?
-                            <Link to="/exercise" style={{ color: '#FFF' }} >
-                                <Button color="inherit">Exercise</Button>
+                            <Link to="/stats" style={{ color: '#FFF' }} >
+                                <Button color="inherit">Stats</Button>
                             </Link>
                             : ''
                         }

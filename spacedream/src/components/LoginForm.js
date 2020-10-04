@@ -51,7 +51,10 @@ const LoginForm = () => {
     return (
       <Container maxWidth="sm">
         <div style={{ textAlign: "center" }}>
+          <br/>
           <Logo src={logo} />
+          <br/>
+          <br/>
           <Typography variant="h4">
             Login
         </Typography>
@@ -151,8 +154,8 @@ const LoginForm = () => {
 };
 
 const Logo = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: auto;
   object-fit: contain;
 `;
 

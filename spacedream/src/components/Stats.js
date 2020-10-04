@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row'
 import Alert from 'react-bootstrap/Alert'
 
 
-const Nutrition = ({ }) => {
+const Stats = ({ }) => {
     /*const { loading, error, data } = useQuery(GET_PLACES, { variables: { continentId } });
 
     if (loading) return (
@@ -29,10 +29,10 @@ const Nutrition = ({ }) => {
         <div>
             <Container maxWidth="md">
                 <br />
-                NUTRITION
+                STATS
             </Container>
         </div>
     );
 }
 
-export default Nutrition;
+export default Stats;

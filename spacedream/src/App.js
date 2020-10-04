@@ -9,9 +9,7 @@ import RegisterForm from "./components/RegisterForm";
 import Welcome from "./components/Welcome";
 import MenuBar from "./components/MenuBar"
 import Calendar from "./components/Calendar"
-import Nutrition from "./components/Nutrition"
-import Sleep from "./components/Sleep"
-import Exercise from "./components/Exercise"
+import Stats from "./components/Stats"
 import {
   BrowserRouter as Router,
   Switch,
@@ -39,9 +37,7 @@ function App() {
         <DarkModeToggle />
         <Switch>
           <Route path="/calendar" component={Calendar} />
-          <Route path="/nutrition" component={Nutrition} />
-          <Route path="/sleep" component={Sleep} />
-          <Route path="/exercise" component={Exercise} />
+          <Route path="/stats" component={Stats} />
           <Route path="/login" component={LoginForm} />
           <Route path="/register" component={RegisterForm} />
         </Switch>

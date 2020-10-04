@@ -51,7 +51,10 @@ const RegisterForm = () => {
   return (
     <Container maxWidth="sm">
       <div style={{ textAlign: "center" }}>
+        <br />
         <Logo src={logo} />
+        <br />
+        <br />
         <Typography variant="h4">
           Register
       </Typography>
@@ -149,8 +152,8 @@ const RegisterForm = () => {
 };
 
 const Logo = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: auto;
   object-fit: contain;
 `;
 
