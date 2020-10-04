@@ -17,7 +17,8 @@ import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 const useStyles = makeStyles((theme) => ({
 	root: {
 	  maxWidth: 500,
-	  marginRight: "30px"
+	  marginRight: "30px",
+	  flexGrow: 1
 	},
 	optionMenu: {
 		minWidth: "30px"

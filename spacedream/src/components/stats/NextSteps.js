@@ -53,65 +53,9 @@ function Title(props) {
 	</Typography>
 	);
 }
-const data = [
-	{
-		type: "meal",
-		user: "markmed",
-		userName: "Marcos Medina",
-		timeStart: "09:00am",
-		timeEnd: "10:00am",
-		title: "Breakfast w/ Coffe!",
-		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
-	},
-	{
-		type: "meal",
-		user: "markmed",
-		userName: "Marcos Medina",
-		timeStart: "03:00pm",
-		timeEnd: "04:00pm",
-		title: "Have lunch (Fresh Corn!)",
-		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
-	},
-	{
-		type: "meal",
-		user: "markmed",
-		userName: "Marcos Medina",
-		timeStart: "08:00pm",
-		timeEnd: "09:00pm",
-		title: "Dinner (Steak!)",
-		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
-	},
-	{
-		type: "meal",
-		user: "markmed",
-		userName: "Marcos Medina",
-		timeStart: "08:00pm",
-		timeEnd: "09:00pm",
-		title: "Dinner (Steak!)",
-		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
-	},
-	{
-		type: "meal",
-		user: "markmed",
-		userName: "Marcos Medina",
-		timeStart: "08:00pm",
-		timeEnd: "09:00pm",
-		title: "Dinner (Steak!)",
-		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
-	},
-	{
-		type: "meal",
-		user: "markmed",
-		userName: "Marcos Medina",
-		timeStart: "08:00pm",
-		timeEnd: "09:00pm",
-		title: "Dinner (Steak!)",
-		description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias placeat quaerat vero dolore labore reiciendis dignissimos eligendi nobis aperiam. Fugit consectetur cum natus porro rem ab illo odio harum sint?"
-	}
-  ]
 
 const NextSteps = (props) => {
-	const {children} = props
+	const {children, data} = props
     /*const { loading, error, data } = useQuery(GET_PLACES, { variables: { continentId } });
 
     if (loading) return (
@@ -136,7 +80,9 @@ const NextSteps = (props) => {
 			{children}
 		</Title>
 		<CardsList>
-			{data.map(dataInstance => (<NextStepCard data={dataInstance}></NextStepCard>))}
+			{(data)
+			?(data.map(dataInstance => (<NextStepCard data={dataInstance}></NextStepCard>)))
+			:(<h3 style={{color: "rgba(0, 0, 0, 0.2)"}}><i>There are not next steps!</i></h3>)}
 		</CardsList>
 		
 	</Paper>

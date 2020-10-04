@@ -8,7 +8,8 @@ import Alert from 'react-bootstrap/Alert';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Summarize from './stats/Summarize';
-import NextSteps from './stats/NextSteps'
+import NextSteps from './stats/NextSteps';
+import {nextStepsData} from "../assets/nextStepsData.js";
 
 const GET_EVENTS = gql`
     query EventsByUser($userId: ID!) {
@@ -23,6 +24,7 @@ const GET_EVENTS = gql`
     }
 `;
 
+const {dataSleep,dataMeal, dataTasks, dataExercise} = nextStepsData;
 
 
 const useStyles = makeStyles((theme) => ({
@@ -126,19 +128,19 @@ const Stats = (props) => {
 			<Tab className={classes.tab} label="Sleep" {...a11yProps(3)} />
 		</Tabs>
 		<TabPanel className={classes.tabPanel} value={value} index={0}>
-		  <NextSteps>next meals</NextSteps>
+		  <NextSteps data={dataMeal}> next meals</NextSteps>
 		  <Summarize />
 		</TabPanel>
 		<TabPanel className={classes.tabPanel} value={value} index={1}>
-		  <NextSteps>next tasks to do</NextSteps>
+		  <NextSteps data={dataTasks}>next tasks to do</NextSteps>
 		  <Summarize />
 		</TabPanel>
 		<TabPanel className={classes.tabPanel} value={value} index={2}>
-		  <NextSteps>next Exercise sessions</NextSteps>
+		  <NextSteps data={dataExercise}>next Exercise sessions</NextSteps>
 		  <Summarize />
 		</TabPanel>
 		<TabPanel className={classes.tabPanel} value={value} index={3}>
-		  <NextSteps>Sleep Time!</NextSteps>
+		  <NextSteps data={dataSleep}>Sleep Time!</NextSteps>
 		  <Summarize />
 		</TabPanel>
 	  </div>
