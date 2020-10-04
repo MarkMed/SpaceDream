@@ -2,7 +2,7 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-
+import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,15 +24,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
+const FooterStyle = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+`;
 
 function Footer() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © SpaceDream '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <FooterStyle>
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © SpaceDream '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    </FooterStyle>
   );
 }
 export default Footer;
